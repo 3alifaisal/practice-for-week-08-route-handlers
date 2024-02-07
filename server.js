@@ -45,21 +45,16 @@ const server = http.createServer((req, res) => {
       return res.end('Dogs Index')
     }
     let urlParts = req.url.split("/")
-    if (req.method === "GET" && req.url.startsWith("/dogs") && urlParts.length === 3 && urlParts[3]) {
+    if (req.method === "GET" && req.url.startsWith("/dogs/")  && urlParts[2]) {
       res.statusCode = 200;
       res.setHeader("Content-Type", "text/plain");
-      return res.end('Dog details for dogId: ' + urlParts[urlParts.length-1])
-    }
-    if (req.method === "GET" && req.url === "/dogs/new") {
-      res.statusCode = 200;
-      res.setHeader("Content-Type", "text/plain");
-      return res.end('Dog create form page')
+      return res.end('Dog details for dogId: ' + urlParts[2])
     }
 
     if(req.method = "POST" && req.url === "/dogs") {
       res.statusCode = 302;
-      let newDogId = getNewDogId()
-      res.setHeader('location','/dogs/' + newDogId);
+  
+        res.setHeader('location','/dogs/' + getNewDogId());
       return res.end()
     }
     // Do not edit below this line
